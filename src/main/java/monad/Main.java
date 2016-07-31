@@ -30,7 +30,7 @@ public class Main {
             )
         );
 
-        final String nome = "João";
+        final String nome = "Pedsro";
         compararComNull(pessoas, nome);
         usarIsPresent(pessoas, nome);
         usarFlatMapComOptional(pessoas, nome);

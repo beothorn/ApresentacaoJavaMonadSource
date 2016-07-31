@@ -10,6 +10,9 @@ public class Resultado<T> {
     private final String problema;
 
     public static <U> Resultado<U> eh(final U valor){
+        if(valor == null) {
+            return Resultado.comProblema("Valor não pode ser nulo");
+        }
         return new Resultado<>(valor, null);
     }
 
