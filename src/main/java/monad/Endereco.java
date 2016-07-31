@@ -2,8 +2,6 @@ package monad;
 
 import java.util.Optional;
 
-import monad.queryResultExample.Resultado;
-
 public class Endereco {
 
     private final Cidade cidade;

@@ -1,4 +1,4 @@
-package monad.optional;
+package monad;
 
 import static monad.Cidade.cidade;
 import static monad.Endereco.endereco;
@@ -8,34 +8,29 @@ import static monad.Pessoa.pessoas;
 import java.util.Map;
 import java.util.Optional;
 
-import monad.Cidade;
-import monad.Endereco;
-import monad.Pessoa;
-import monad.queryResultExample.Resultado;
-
-public class ExemploOptional {
+public class Main {
 
     public static void main(final String[] args) {
         final Map<String, Pessoa> pessoas = pessoas(
-            pessoa(
+            pessoa(//João tem endereço e cidade
                 "João",
                 endereco(
                     cidade("Curitiba")
                 )
             ),
-            pessoa(
+            pessoa(//Maria tem endereço mas não tem cidade
                 "Maria",
                 endereco(
                     null
                 )
             ),
-            pessoa(
+            pessoa(//Pedro não tem endereço
                 "Pedro",
                 null
             )
         );
 
-        final String nome = "Pedro";
+        final String nome = "João";
         compararComNull(pessoas, nome);
         usarIsPresent(pessoas, nome);
         usarFlatMapComOptional(pessoas, nome);
@@ -46,6 +41,7 @@ public class ExemploOptional {
         final Map<String, Pessoa> pessoas,
         final String nome
     ) {
+        System.out.println("Comparar com null");
         final Pessoa pessoa = pessoas.get(nome);
 
         if (pessoa != null) {
@@ -63,6 +59,7 @@ public class ExemploOptional {
         final Map<String, Pessoa> pessoas,
         final String nome
     ) {
+        System.out.println("Usar is present");
         final Optional<Pessoa> pessoa = Optional.ofNullable(pessoas.get(nome));
 
         if (pessoa.isPresent()) {
@@ -80,20 +77,22 @@ public class ExemploOptional {
         final Map<String, Pessoa> pessoas,
         final String nome
     ) {
+        System.out.println("Usar flat map com Optional");
         Optional.ofNullable(pessoas.get(nome))
             .flatMap(Pessoa::maybeEndereco)
             .flatMap(Endereco::maybeCidade)
-            .ifPresent(ExemploOptional::process);
+            .ifPresent(Main::process);
     }
 
     private static void usarFlatMapComResultado(
         final Map<String, Pessoa> pessoas,
         final String nome
     ) {
+        System.out.println("Usar flat map com resultado");
         Resultado.eh(pessoas.get(nome))
             .flatMap(Pessoa::queryEndereco)
             .flatMap(Endereco::queryCidade)
-            .seTemResultado(ExemploOptional::process)
+            .seTemResultado(Main::process)
             .senao((problema) -> System.out.println("Ops, ocorreu um problema:\n"+problema) );
     }
 

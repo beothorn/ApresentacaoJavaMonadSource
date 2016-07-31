@@ -1,4 +1,4 @@
-package monad.queryResultExample;
+package monad;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

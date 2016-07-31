@@ -4,8 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import monad.queryResultExample.Resultado;
-
 public class Pessoa {
 
     private final Endereco endereco;
